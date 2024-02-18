@@ -5,10 +5,10 @@ block content
     h1.text-center= contact.firstName + ' ' + contact.lastName
     table(style="width: 100%; margin-top: 20px;")
       tr
-        th Email
-        th Notes
-        th Created
-        th Last Edited
+        th Email:
+        th Notes:
+        th Created:
+        th Last Edited:
       tr
         td #{contact.email}
         td #{contact.notes ? contact.notes : 'No notes available'}
