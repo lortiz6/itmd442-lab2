@@ -1,0 +1,14 @@
+extends layout
+
+block content
+  h1 Add New Contact
+  form(method='POST', action='/contacts')
+    label First Name
+    input(type='text', name='firstName', required)
+    label Last Name
+    input(type='text', name='lastName', required)
+    label Email Address
+    input(type='text', name='email')
+    label Notes
+    textarea(name='notes')
+    button(type='submit') Add Contact
