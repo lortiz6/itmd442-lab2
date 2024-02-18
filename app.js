@@ -99,7 +99,7 @@ app.delete('/contacts/:id', (req, res) => {
 
 app.use((err, req, res, next) => {
   console.error(err.stack);
-  res.status(500).send('Something broke!');
+  res.status(500).send(`Something broke! Error: ${err.message}`);
 });
 
 app.listen(3000, () => console.log('Server started on port 3000'));
