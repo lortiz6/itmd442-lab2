@@ -1,0 +1,2 @@
+# itmd442-lab2
+ In this lab is to practice the concepts of the CRUD operations (create, read, update, delete) in a Node JS Express application. The objective of this is to make a Node JS Express application that acts as a contact database and allows the user to create, edit, view, or delete individual contacts. The home page will list all the contacts and from there the user can view, edit, delete, or add a contact. A database is not used for this app to store persistent data, instead the data persist using a file on the file system as show in class demos.
