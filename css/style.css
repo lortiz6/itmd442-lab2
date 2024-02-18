@@ -8,8 +8,8 @@ body {
   padding: 20px;
 }
 .btn-cancel {
-  background-color: #ccc; /* Change color to match your design */
-  border: none;
+  background-color: #ccc;
+  border: 1px solid #ccc;
   color: white;
   padding: 10px 20px;
   text-align: center;
@@ -22,6 +22,7 @@ body {
 }
 .btn-cancel:hover {
   background-color: #790000b5;
+  border-color: black;
 }
 
 
