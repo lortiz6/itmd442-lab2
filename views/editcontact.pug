@@ -2,7 +2,6 @@ extends layout
 
 block content
   link(rel='stylesheet', href='/css/style.css') // Add this line to link your CSS file
-
   h1 Edit Contact
   form(method='POST', action=`/contacts/${contact.id}?_method=PUT`)
     label First Name: 
