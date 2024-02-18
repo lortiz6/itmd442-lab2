@@ -1,25 +1,26 @@
 extends layout
 
 block content
-  h1 Contacts
-  table
-    thead
-      tr
-        th First Name:
-        th Last Name:
-        th Email Address:
-        th Actions:
-    tbody
-      each contact in contacts
+  div.contactscontainer
+    h1 Contacts
+    table.contacts-table
+      thead
         tr
-          td= contact.firstName
-          td= contact.lastName
-          td= contact.email
-          td
-            a(href=`/contacts/${contact.id}`).btn.mb-20 View
-            br
-            a(href=`/contacts/${contact.id}/edit`).btn.mb-20 Edit
-            form(method='POST', action=`/contacts/${contact.id}?_method=DELETE`)
-              button(type='submit').btn.mb-20 Delete
+          th First Name
+          th Last Name
+          th Email Address
+          th Actions
+      tbody
+        each contact in contacts
+          tr
+            td= contact.firstName
+            td= contact.lastName
+            td= contact.email
+            td
+              a(href=`/contacts/${contact.id}`).btn.mb-20 View
+              br
+              a(href=`/contacts/${contact.id}/edit`).btn.mb-20 Edit
+              form(method='POST', action=`/contacts/${contact.id}?_method=DELETE`)
+                button(type='submit').btn.mb-20 Delete
   br
   a(href='/contacts/new').btn.mb-20 Add Contact

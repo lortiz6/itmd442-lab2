@@ -7,6 +7,23 @@ body {
   margin: 0 auto;
   padding: 20px;
 }
+.contactscontainer {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+.contacts-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.contacts-table th, .contacts-table td {
+  padding: 8px;
+  border: 1px solid #be0909;
+}
+.contacts-table th {
+  background-color: #079b33;
+  text-align: left;
+}
 
 .btn-cancel {
   background-color: #ccc;
