@@ -1,0 +1,18 @@
+extends layout
+
+block content
+  h1 Edit Contact
+  form(method='POST', action=`/contacts/${contact.id}?_method=PUT`)
+    label First Name
+    input(type='text', name='firstName', value=contact.firstName, required)
+    label Last Name
+    input(type='text', name='lastName', value=contact.lastName, required)
+    label Email Address
+    input(type='text', name='email', value=contact.email)
+    label Notes
+    textarea(name='notes')= contact.notes
+    button(type='submit') Save
+    
+  //- Add a button that acts as a link to the contacts page
+  br
+  a(href='/contacts').btn.btn-back Back to Contacts
