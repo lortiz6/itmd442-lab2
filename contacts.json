@@ -16,5 +16,14 @@
     "notes": "Test 3",
     "created": "2024-02-18T07:13:57.824Z",
     "lastEdited": "2024-02-18T07:35:50.808Z"
+  },
+  {
+    "id": "e52082f7-5c38-4e89-ae2b-e225dce43ae5",
+    "firstName": "Juan",
+    "lastName": "Sanchez",
+    "email": "sanchez123@email.org",
+    "notes": "Fixed last name",
+    "created": "2024-02-19T00:01:22.056Z",
+    "lastEdited": "2024-02-19T00:02:35.943Z"
   }
 ]
