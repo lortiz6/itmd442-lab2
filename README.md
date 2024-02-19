@@ -13,10 +13,11 @@ This project focuses on practicing CRUD operations (CREATE, READ, UPDATE, DELETE
 
 ## Installation/Running Instructions:
 1. Clone the repository
-2. Navigate to the project directory
+2. Navigate to the project directory (`cd project/directory`)
 3. Run `npm install` to install dependencies
 4. Issue the command `npm start` to start the application
 5. Visit [http://localhost:3000/](http://localhost:3000/) in your browser
+
 
 ## Insights and Results:
 During the development process, I gained experience in HTML using the Pug format, along with some rendering features. However, I encountered an issue where the pages were not loading, and I received the error message: "This site can’t be reached - localhost refused to connect. ERR_CONNECTION_REFUSED." After troubleshooting, I realized that I had forgotten to run the `npm start` command to start my application, which resolved the issue.
