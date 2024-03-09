@@ -1,24 +1,29 @@
-const express = require('express');
 const fs = require('fs');
 const path = require('path');
+const express = require('express');
 const { v4: uuidv4 } = require('uuid');
+const methodOverride = require('method-override');
 
 const app = express();
+const contactsFilePath = path.join(__dirname, 'contacts.json');
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-const methodOverride = require('method-override');
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
-const contactsPath = path.join(__dirname, 'contacts.json');
+// Functions for reading and writing contacts
+function writeContactsToFile(contacts) {
+  fs.writeFileSync(contactsFilePath, JSON.stringify(contacts, null, 2));
+}
 
-function readContacts() {
+function readContactsFromFile() {
   let contacts = [];
   try {
-    const data = fs.readFileSync(contactsPath, 'utf8');
+    const data = fs.readFileSync(contactsFilePath, 'utf8');
     contacts = JSON.parse(data);
   } catch (err) {
     if (err.code === 'ENOENT' || err.message.includes('Unexpected end of JSON input')) {
@@ -30,16 +35,13 @@ function readContacts() {
   return contacts;
 }
 
-function writeContacts(contacts) {
-  fs.writeFileSync(contactsPath, JSON.stringify(contacts, null, 2));
-}
-
+// Routes
 app.get('/', (req, res) => {
   res.render('index');
 });
 
 app.get('/contacts', (req, res) => {
-  const contacts = readContacts();
+  const contacts = readContactsFromFile();
   res.render('contacts', { contacts });
 });
 
@@ -48,19 +50,19 @@ app.get('/contacts/new', (req, res) => {
 });
 
 app.get('/contacts/:id', (req, res) => {
-  const contacts = readContacts();
-  const contact = contacts.find(c => c.id === req.params.id);
-  if (!contact) {
+  const contacts = readContactsFromFile();
+  const requestedContact = contacts.find(contact => contact.id === req.params.id);
+  if (!requestedContact) {
     res.status(404).send('Contact not found');
   } else {
-    contact.createdFormatted = new Date(contact.created).toLocaleString();
-    contact.lastEditedFormatted = new Date(contact.lastEdited).toLocaleString();
-    res.render('contact', { contact });
+    requestedContact.createdFormatted = new Date(requestedContact.created).toLocaleString();
+    requestedContact.lastEditedFormatted = new Date(requestedContact.lastEdited).toLocaleString();
+    res.render('contact', { contact: requestedContact });
   }
 });
 
 app.post('/contacts', (req, res) => {
-  const contacts = readContacts();
+  const contacts = readContactsFromFile();
   const newContact = {
     id: uuidv4(),
     ...req.body,
@@ -68,32 +70,32 @@ app.post('/contacts', (req, res) => {
     lastEdited: new Date().toISOString()
   };
   contacts.push(newContact);
-  writeContacts(contacts);
+  writeContactsToFile(contacts);
   res.redirect(`/contacts/${newContact.id}`);
 });
 
 app.get('/contacts/:id/edit', (req, res) => {
-  const contacts = readContacts();
-  const contact = contacts.find(c => c.id === req.params.id);
-  res.render('editContact', { contact });
+  const contacts = readContactsFromFile();
+  const requestedContact = contacts.find(contact => contact.id === req.params.id);
+  res.render('editContact', { contact: requestedContact });
 });
 
 app.put('/contacts/:id', (req, res) => {
-  let contacts = readContacts();
-  contacts = contacts.map(c => {
-    if (c.id === req.params.id) {
-      return { ...c, ...req.body, lastEdited: new Date().toISOString() };
+  let contacts = readContactsFromFile();
+  contacts = contacts.map(contact => {
+    if (contact.id === req.params.id) {
+      return { ...contact, ...req.body, lastEdited: new Date().toISOString() };
     }
-    return c;
+    return contact;
   });
-  writeContacts(contacts);
+  writeContactsToFile(contacts);
   res.redirect(`/contacts/${req.params.id}`);
 });
 
 app.delete('/contacts/:id', (req, res) => {
-  let contacts = readContacts();
-  contacts = contacts.filter(c => c.id !== req.params.id);
-  writeContacts(contacts);
+  let contacts = readContactsFromFile();
+  contacts = contacts.filter(contact => contact.id !== req.params.id);
+  writeContactsToFile(contacts);
   res.redirect('/contacts');
 });
 
@@ -102,4 +104,5 @@ app.use((err, req, res, next) => {
   res.status(500).send(`Something broke! Error: ${err.message}`);
 });
 
-app.listen(3000, () => console.log('Server started on port 3000'));
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Server started on port ${PORT}`));

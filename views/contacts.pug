@@ -2,9 +2,9 @@ extends layout
 
 block content
   link(rel='stylesheet', href='/css/style.css')
-  div.contactscontainer
+  div#contacts-container
     h1 Contacts
-    table.contacts-table
+    table#contacts-table
       thead
         tr
           th First Name
@@ -18,10 +18,10 @@ block content
             td= contact.lastName
             td= contact.email
             td
-              a(href=`/contacts/${contact.id}`).btn.mb-20 View
+              a.btn(href=`/contacts/${contact.id}`).view-btn View
               br
-              a(href=`/contacts/${contact.id}/edit`).btn.mb-20 Edit
-              form(method='POST', action=`/contacts/${contact.id}?_method=DELETE`)
-                button(type='submit').btn.mb-20 Delete
+              a.btn(href=`/contacts/${contact.id}/edit`).edit-btn Edit
+              form(method='POST', action=`/contacts/${contact.id}?_method=DELETE`, class='delete-form')
+                button.delete-btn(type='submit') Delete
   br
-  a(href='/contacts/new').btn.mb-20 Add Contact
+  a.btn(href='/contacts/new') Add Contact
